@@ -228,67 +228,6 @@ svelte-store-treeはもちろんそれより一歩踏み込んでいます。そ
 
 子における更新が確実に伝播するので、親において木全体に対する処理を書くことも容易にできます！
 
-<!--
-## Solid.jsのstoreとの比較
-
-Svelteを問わず、他の状態管理ライブラリーをあれこれ調べてまとめて比較しようか、とも思ってました[^list]が、いずれも結構コンセプトに差があり、素直に比較するのは難しそうなので諦めます。その代わりに、一番似通っていて、かつsvelte-store-treeの設計に少し影響を与えた[Solid.jsのstore](https://www.solidjs.com/tutorial/stores_createstore)と比較したいと思います。リンク先のページ冒頭で「ストアは、ネストしたリアクティビティに対する Solid の答えです」と謳っているとおり、Solid.jsのstoreも、ネストした構造を部分的に変更したり、部分的な変更を参照しているコンポーネントに効率よく伝達するのに便利な機能です。
-
-[^list]: 一応、[こちら](hoge)にメモをまとめておきました。と言っても事実上ただのリンク集となってしまっていますが...
-
-そんなSolid.jsのstoreとsvelte-store-treeの違いを一言で言うと、svelte-store-treeの方が単純である、と言うことに尽きます。svelte-store-treeは、Solid.jsのstoreに比べて機能は少なく、やや不格好な使い勝手であるものの、その分単純で、特にSvelteのstoreに慣れた方にとって敷居が低いものになったと自負しています。
-
-### `Proxy`の不使用
-
-Solid.jsのstoreは、オブジェクトのプロパティーへのアクセスを独自の関数で監視したりできる[`Proxy`オブジェクト](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Proxy)を利用することで、指定したオブジェクト自身だけでなく、オブジェクトのプロパティーまで追跡し、変更を参照しているコンポーネントに伝えることができます。
-
-Solid.jsのstoreは`Proxy`を使って実装されているので、ユーザーは普通のオブジェクトを参照するのと同じ要領で、プロパティーへの参照を追跡できます:
-
-```typescript
-import { createStore } from "solid-js/store";
-
-const [state, setState] = createStore({
-  someProperty: true
-});
-
-// コンポーネントで someProperty を使用するだけで、
-// someProperty に変更があった場合にコンポーネントに変更が伝わるようになる
-state.someProperty;
-```
-
-svelte-store-treeのように逐一`zoomWritable`などを呼んで新しいstoreを作る必要がないのです。
-
-これは便利な一方で、思わぬ落とし穴を作ることがあります。
-
-
-### 単純な引数
-
-Solid.jsのstoreは、更新する関数において引数を複数指定することで、より
-
-```typescript
-import { createStore } from "solid-js/store";
-
-const [state, setState] = createStore({
-  foo: {
-    bar: {
-      baz: 42
-    }
-  }
-});
-
-// コンポーネントで someProperty を使用するだけで、
-// someProperty に変更があった場合にコンポーネントに変更が伝わるようになる
-state.someProperty;
-```
-
-### 型安全なフィルタリング
-
-より実用的で明確な違いとして、svelte-store-treeの`choose`メソッドなどによるstoreの値のフィルタリングは、Solid.jsのstoreにおける述語関数（`boolean`な値を返す関数）を用いたフィルタリングより、型安全であることを挙げましょう。
-
-Solid.jsのstoreは、
-
-hoge
--->
-
 # 今後
 
 私のTypeScript力が不足していたこともあり、他のライブラリーを調べているうちにいろいろ改善点が見えてきた[^competitors]ので、使い方を紹介した後で恐縮ですが、APIをいろいろ修正したいと思います。乞うご期待。
