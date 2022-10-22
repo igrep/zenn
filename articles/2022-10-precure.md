@@ -2,7 +2,7 @@
 title: "【非プログラマー向け】今更ながら「タイプセーフプリキュア！」はじめプリキュア実装について紹介"
 type: "tech"
 emoji: "💖"
-topics: ["プリキュア", "Haskell", "Ruby"]
+topics: ["プリキュア", "Haskell"]
 published: true
 ---
 
