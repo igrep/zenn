@@ -2,7 +2,7 @@
 title: "なぜSvelte風Solid.jsのstoreは作れないか、およびsvelte-store-treeの新バージョンの紹介"
 type: "tech"
 emoji: "🚉"
-topics: ["TypeScript", "Svelte", "状態管理"]
+topics: ["TypeScript", "Svelte", "solidjs", "状態管理"]
 published: true
 ---
 
