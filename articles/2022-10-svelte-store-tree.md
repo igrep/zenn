@@ -15,7 +15,7 @@ published: true
 # あらまし
 
 - svelte-store-treeはv0.3.1以降、`WritableTree`と`ReadableTree`自身のメソッドを単純化して、代わりに`Accessor`を作成したり合成したりしやすくした
-- 類似のライブラリーであるSolid.jsのstoreを参考にしたが、Solid.jsのstoreと異なり、svelte-store-treeは`choose`というAPIを使ってstoreの中の値を選択しなければ、union型をうまく扱えない。それは、Solid.jsのstoreと異なり、Svelteのstoreが「storeの中の値を読むAPI」と「storeの値を更新するAPI」を別々のオブジェクトに属させていることに起因している。
+- 類似のライブラリーであるSolid.jsのstoreを参考にしたが、Solid.jsのstoreと異なり、svelte-store-treeは`choose`というAPIを使ってstoreの中の値を選択しなければ、union型をうまく扱えない。それは、Svelteのstoreが「storeの中の値を読むAPI」と「storeの値を更新するAPI」を一つのオブジェクトに属させていることに起因している。
 
 # 使い方の例
 
