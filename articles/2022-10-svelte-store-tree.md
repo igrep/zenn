@@ -6,11 +6,13 @@ topics: ["TypeScript", "Svelte", "solidjs", "状態管理"]
 published: true
 ---
 
+For English speakers: I've published [the English version of this article](https://dev.to/igrep/why-i-failed-to-create-the-solidjss-store-for-svelte-and-announcing-svelte-store-tree-v031-1am2), which I translated and combined with the [last article in Japanese](https://zenn.dev/igrep/articles/2022-09-svelte-store-tree) to reedit.
+
 先ほど、[前回](https://zenn.dev/igrep/articles/2022-09-svelte-store-tree)紹介した、Svelte用の状態管理ライブラリー、svelte-store-treeの新しいバージョン（v0.3.1）をリリースしました:
 
 [svelte-store-tree - npm](https://www.npmjs.com/package/svelte-store-tree)
 
-このバージョンでは、APIを[Solid.jsのstoreという機能](https://www.solidjs.com/tutorial/stores_createstore)を参考に、ガラッと変更してより使いやすくしました。そこでこの記事では、新しくなったAPIを紹介するとともに、類似のライブラリーとして参考にした、Solid.jsのstoreと比較したいと思います。それを通じて、Svelteのstoreについて一つ問題点を紹介しますので、今後の仕様を検討する上で参考にしていただければ幸いです（この後この記事の英語版を作ります）。
+このバージョンでは、APIを[Solid.jsのstoreという機能](https://www.solidjs.com/tutorial/stores_createstore)を参考に、ガラッと変更してより使いやすくしました。そこでこの記事では、新しくなったAPIを紹介するとともに、類似のライブラリーとして参考にした、Solid.jsのstoreと比較したいと思います。それを通じて、Svelteのstoreについて一つ問題点を紹介しますので、今後の仕様を検討する上で参考にしていただければ幸いです（[前回の記事と併せて再編集し、英語版を公開しました](https://dev.to/igrep/why-i-failed-to-create-the-solidjss-store-for-svelte-and-announcing-svelte-store-tree-v031-1am2)）。
 
 # あらまし
 
@@ -260,9 +262,9 @@ const [state, setState] = createStore({
 });
 ```
 
-ペアの一つ目に含まれる値（上記の例で言うところの`store`）は、[Proxy](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Proxy)でラップされています。そうすることで、`store`の値や、その一部のプロパティーに対するアクセスを追跡してくれます。
+ペアの一つ目に含まれる値（上記の例で言うところの`state`）は、[Proxy](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Proxy)でラップされています。そうすることで、storeの値や、その一部のプロパティーに対するアクセスを追跡してくれます。
 
-それから、ペアの二つ目に含まれる関数（上記の例で言うところの`setStore`）は、次のように入れ子構造の各段階におけるプロパティーの名前や、（該当する値が配列であれば）、どの要素を更新するか指定する関数などを、「パス」として各引数で指定できます:
+それから、ペアの二つ目に含まれる関数（上記の例で言うところの`setStore`）は、次のように入れ子構造の各段階におけるプロパティーの名前や、（該当する値が配列であれば）どの要素を更新するか指定する関数などを、「パス」として各引数で指定できます:
 
 ```javascript
 // `todos` プロパティーにおける0番目と2番目の要素の`completed`プロパティーを`true`に
@@ -280,8 +282,6 @@ setState('todos', todo => todo.completed, 'task', t => t + '!');
 ## どこを参考にしたのか
 
 そんなSolid.jsのstore機能から（少し）影響を受け、svelte-store-treeは`Accessor`、すなわち入れ子構造にどうアクセスするか指定するためのAPIを改善しました。具体的には、Solid.jsのstoreでは、前の節で言ったところの`setStore`関数の引数において、プロパティー名や要素を選択する関数を複数指定することで、それらを組み合わせることができると紹介しました。一方、svelte-store-treeでは、`Accessor`クラスの`and`というメソッドを呼ぶことで、入れ子構造へのアクセス方法を組み合わせることができます。
-
-[^array]: ⚠️Solid.jsのstoreにおいて、storeの値を関数でフィルタリングしたりする機能は、storeの値が配列である場合のみ使えます。svelte-store-treeにおける`choose`のように、型の絞り込みに使うのとは趣旨が異なるのでご注意ください。
 
 例えば「`store`の値における`foo`というプロパティーの値が、`undefined`でない場合のみ`subscribe`した関数を呼ぶ」storeは、次のように`into`と`isPresent`という`Accessor`を組み合わせることで作ることができます:
 
@@ -311,7 +311,7 @@ const key = tree.zoom(choose(chooseKeyValue).and(into("key")));
 
 なぜSolid.jsのstoreでは`choose`のような機能が要らないのでしょうか？それは、`createStore`関数が返す、storeの値を読み出すためのオブジェクト（`Proxy`で包まれたstoreの現在の値）と、更新するための関数を、別々に扱うよう設計されているところにあります。
 
-`choose`が担うような、storeの値が特定の条件にマッチするよう選ぶ処理は、Solid.jsのstoreでは、単にstoreの値のコンポーネントの中で[`Show`](https://www.solidjs.com/tutorial/flow_show)や[`Match`](https://www.solidjs.com/tutorial/flow_switch)（Solid.jsのコンポーネントにおける`if`文に相当するもの）を使って分岐すれば良いのです。
+`choose`が担うような、storeの値が特定の条件にマッチするよう選ぶ処理は、Solid.jsのstoreでは、単にコンポーネントの中で[`Show`](https://www.solidjs.com/tutorial/flow_show)や[`Switch` / `Match`](https://www.solidjs.com/tutorial/flow_switch)（Solid.jsのコンポーネントにおける`if`文に相当するもの）を使ってstoreの値による分岐をすれば良いのです。
 
 これは同じことがsvelte-store-treeにも当てはまりそうにも聞こえますが、うまくいきません。`choose`を最初に紹介したとき用いた例を思い出してください:
 
@@ -368,7 +368,7 @@ storeはトップレベル[^script]で宣言しなければならず、`{@const 
 
 強引にこのエラーを回避するなら、`<input type="text" bind:value={$key} />`などの部分を独立したコンポーネントに切り出して、そのコンポーネントが`WritableTree<KeyValue>`を受け取るようにする、という手があります。しかしそうしたとしても、型エラーが残ります。上記の`{#if typeof $tree === "string"}`で始まる分岐において型を絞り込めたのは、あくまでも`$tree`、すなわち`tree`が`subscribe`している関数に渡した現在の値であり、`tree`を`WritableTree<Tree>`から`WritableTree<KeyValue>`に絞り込めたわけではないのです。TypeScriptはそこまでこちらの事情をくみ取ってはくれません。
 
-以上のような問題が発生するため、少なくともSvelteにおける**従来のstoreに倣うような形で、ネストした構造を扱う機能を加えるのは、難しい**と判断しました。
+以上のような問題が発生するため、少なくともSvelteにおける従来のstoreに倣うような形で件の機能を加えるのは、難しいと判断しました。
 
 なぜこのような、storeの値だけでない、storeそのものに対する型の絞り込みが必要なのでしょうか？それは、Svelteのstoreが値を読み出すAPI（`subscribe`）と、更新に用いるAPI（`set`など）の両方を、一つのオブジェクトに担わせているからです。詳細について、`WritableTree`を次のように簡略化して解説します:
 

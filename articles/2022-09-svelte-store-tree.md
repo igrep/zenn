@@ -29,7 +29,7 @@ export type KeyValue = {
 
 いろいろな値を取り得る、再帰的な構造になっていますね。
 
-なお、[このサンプルアプリのコードはGitHubにも](https://github.com/igrep/svelte-store-tree/tree/main/example)置いているので、今後具体的な箇所を例示する際は執筆時点のバージョンにおける街頭の行へのリンクを張ります。
+なお、[このサンプルアプリのコードはGitHubにも](https://github.com/igrep/svelte-store-tree/tree/main/example)置いているので、今後具体的な箇所を例示する際は執筆時点のバージョンにおける該当の行へのリンクを張ります。
 
 ## `WritableTree`オブジェクトの作成
 
