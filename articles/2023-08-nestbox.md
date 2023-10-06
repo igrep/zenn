@@ -14,6 +14,8 @@ Nestboxとは、Android 13以降で利用できるようになった「[Android�
 
 # ⚠️注意事項
 
+**2023/10/06 追記**: Android 14が公開されましたね。危ないだろうなぁ、と思いつつ、むしゃくしゃしたので手元のPixel 6を**Android 14に更新したところ、残念ながらNestboxは動かなくなりました**。root化を要求する画面から先に進めません。`fastboot oem pkvm enable`してみても`Error Unknown OEM command`というエラーが出るだけなので、もしかしたらpKVMの仕様が変わった（あるいは使えなくなった）のかも知れません😞。
+
 執筆時点で私が知る限り、利用できるのは次の端末だけです。作者による最初の紹介記事、「[Exclusive: Nestbox - Easy Linux VMs for Pixel 6+](https://www.patreon.com/posts/74333551)」ではタイトルに「Pixel 6+」とあるのでPixel 6以降のAndroid 13が搭載された端末であればどれでも使えるように見えるのですが、[最新版についての記事](https://www.patreon.com/posts/nestbox-beta-7-76632132)のコメントでも確認できるとおり、**Pixel 7aやPixel Tabletでは動きません**。かくいう私自身もPixel Tabletで試して敢えなく失敗しました😭。
 
 - root化しなくても利用できる端末
