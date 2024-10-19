@@ -40,7 +40,7 @@ published: true
 
 [^gpu]: GPUの性能については[Armが提供するGPUのデータシート](https://developer.arm.com/documentation/102849/0700/?lang=en)を参考にしました。
 
-詳細なスコアは[リポジトリー](https://github.com/igrep/zenn/tree/main/others/2024-10-3-chromebook-benchmark)に載せておきます（スクショのものが大藩ですみません）。
+詳細なスコアは[リポジトリー](https://github.com/igrep/zenn/tree/main/others/2024-10-3-chromebook-benchmark)に載せておきます（スクショのものが大半ですみません）。
 
 # ベンチマーク1: Androidランタイム上でのベンチマーク
 
