@@ -6,7 +6,7 @@ topics: ["Nushell", "シェル"]
 published: true
 ---
 
-この記事は[Nushell Advent Calendar](https://qiita.com/advent-calendar/2024/Nushell) hoge日目の記事です。
+この記事は[Nushell Advent Calendar](https://qiita.com/advent-calendar/2024/Nushell) 10日目の記事です。
 
 新しい職場で開発環境のセットアップをしていて気づいたんですが、既存のツール群は当然Bashや（macOSの場合）Zshを前提としていることが多いので「Nushell（あるいはその他非POSIX shell）に移行するには、そうしたスクリプトとか.zshrcとか.bashrcとかも全部移行しないといけないのでは？」と思っている方も多いかも知れません。
 
